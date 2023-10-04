@@ -1,8 +1,43 @@
-# Excalibur TypeScript & Webpack Starter
+# Space shooter
 
-This is a barebones [Excalibur](https://excaliburjs.com) game engine starter built using Typescript 4 & Webpack 5. It's a great starting place to jumpstart building your game! This repo is a template and can be used to [create your own repository](https://github.com/excaliburjs/template-ts-webpack/generate) in GitHub.
+## Abstract
+This project aims to become a classic space shooter game, to learn the Excalibur basics.
 
-Check out our [other samples](https://excaliburjs.com/samples) while you build your game or [ask us questions](https://github.com/excaliburjs/Excalibur/discussions).
+The game is based on a main menu scene, with highest scores and 2 levels scenes.
+
+Actor is a single spaceship with a standard cannon.
+Can be upgraded with a laser gun, that remains always on while fire button is pressed. Laser gun heats: when overheats causes your ship to lose life.
+Can also be upgraded with some smart missiles, searching for the nearest enemy.
+
+Each scene scrolls upwards, has a NASA picture as background and the fixed objects are described in a JSON data.
+
+Enemies are spawned randomly, with more frequency and more power towards the end of each level.
+There are some enemy races:
+- Asteroid: going randomly but straight. Destroyed when hitting a ship or a fixed object, or being hit several times
+- Basic: going straight, firing cannon only frontally
+- Medium: slow and armoured, pointing towards the player, firing cannon and occasionally missiles.
+- Hard: quick and armoured, firing cannon towards the player and missiles, each one following their leader, mving round and towards the player
+
+Enemies ehnhanchements can be:
+- more fire rate
+- more life
+- more speed
+- more quantity
+
+Occasionally a killed enemy may spawn objects capturable by the player:
+- Life gem
+- Laser gun upgrade
+- A smart missile
+
+Fixed objects:
+- crate
+- piping
+
+Nice to have:
+- some particle emissions in some cases (overheating?)
+
+
+
 
 ## Get Started
 

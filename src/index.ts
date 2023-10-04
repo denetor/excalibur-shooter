@@ -2,12 +2,14 @@ import { Engine, Loader, DisplayMode } from 'excalibur';
 import { LevelOne } from './scenes/level-one/level-one';
 import { Player } from './actors/player/player';
 import { Resources } from './resources';
+import {MainMenu} from "./scenes/main-menu/main-menu";
 
 /**
  * Managed game class
  */
 class Game extends Engine {
   private player: Player;
+  private mainMenu: MainMenu;
   private levelOne: LevelOne;
 
   constructor() {
@@ -17,11 +19,13 @@ class Game extends Engine {
   public start() {
 
     // Create new scene with a player
-    this.levelOne = new LevelOne();
-    this.player = new Player();
-    this.levelOne.add(this.player);
+    // this.levelOne = new LevelOne();
+    // this.player = new Player();
+    // this.levelOne.add(this.player);
+    // game.add('levelOne', this.levelOne);
 
-    game.add('levelOne', this.levelOne);
+    this.mainMenu = new MainMenu();
+    game.add('mainMenu', this.mainMenu);
 
     // Automatically load all default resources
     const loader = new Loader(Object.values(Resources));
@@ -32,5 +36,5 @@ class Game extends Engine {
 
 const game = new Game();
 game.start().then(() => {
-  game.goToScene('levelOne');
+  game.goToScene('mainMenu');
 });
