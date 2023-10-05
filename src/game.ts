@@ -17,7 +17,9 @@ export class Game extends Engine {
   scenesService: ScenesService;
 
   constructor() {
-    super({displayMode: DisplayMode.FitScreen});
+    super({
+      displayMode: DisplayMode.FillScreen
+    });
   }
 
   /**
@@ -36,16 +38,16 @@ export class Game extends Engine {
     this.mainMenu = new MainMenu(this.scenesService);
     this.add('mainMenu', this.mainMenu);
 
-    this.levelOne = new LevelOne();
+    this.levelOne = new LevelOne(this.scenesService);
     // this.player = new Player();
     // this.levelOne.add(this.player);
     this.add('levelOne', this.levelOne);
 
 
     // Automatically load all default resources
-    const loader = new Loader(Object.values(Resources));
-
-    return super.start(loader);
+    // const loader = new Loader(Object.values(Resources));
+    //return super.start(loader);
+    return super.start();
   }
 
 }
