@@ -41,11 +41,8 @@ export class Game extends Engine {
     this.levelOne = new LevelOne(this.scenesService);
     this.add('levelOne', this.levelOne);
 
-
-    // Automatically load all default resources
-    // const loader = new Loader(Object.values(Resources));
-    //return super.start(loader);
-    return super.start();
+    const loader = new Loader(Object.values(Resources));
+    return super.start(loader);
   }
 
 }

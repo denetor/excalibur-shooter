@@ -15,7 +15,7 @@ export class PlayerActor extends Actor {
   protected actorShape: Vector[];
   protected actorStatus = {
     cannon: {
-      ammo: 10,
+      ammo: 100,
       fireInterval: 100,
       exceededRate: false,
     }
