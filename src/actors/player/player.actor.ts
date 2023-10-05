@@ -10,6 +10,7 @@ const PlayerConstants = {
 };
 
 export class PlayerActor extends Actor {
+  public type = 'player';
   // actor shape, used for basic drawing and, in future, to manage collisions
   protected actorShape: Vector[];
   protected actorStatus = {
@@ -19,6 +20,11 @@ export class PlayerActor extends Actor {
       exceededRate: false,
     }
   };
+
+
+  constructor() {
+    super();
+  }
 
 
   onInitialize(engine: Engine) {
@@ -103,7 +109,7 @@ export class PlayerActor extends Actor {
     // fire only if ammo is available and limit fire rate
     if (this.actorStatus.cannon.ammo && !this.actorStatus.cannon.exceededRate) {
       const cannon = new CannonActor();
-      cannon.pos = this.pos;
+      cannon.pos = ex.vec(this.pos.x, this.pos.y - 25);
       cannon.vel = ex.vec(0, -CannonConstants.speed);
       engine.currentScene.add(cannon);
       this.actorStatus.cannon.ammo--;
