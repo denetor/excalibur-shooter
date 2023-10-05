@@ -22,10 +22,13 @@ export class CannonActor extends Actor {
         super.onInitialize(_engine);
 
         this.on('collisionstart', (evt) => {
-            if (evt.other && (evt.other as any)?.type === 'saucer') {
-                console.log({other: evt.other});
-                (evt.other as SaucerActor).hit(CannonConstants.damage);
-                evt.target.kill();
+            if (evt.other && (evt.other as any)?.type) {
+                const targetType = (evt.other as any)?.type;
+                // if some hittable actor has been hit
+                if (['saucer'].some(element => element === targetType)) {
+                    (evt.other as any).hit(CannonConstants.damage);
+                    evt.target.kill();
+                }
             }
         });
     }

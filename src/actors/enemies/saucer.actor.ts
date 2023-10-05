@@ -4,6 +4,8 @@ import * as ex from "excalibur";
 
 const SaucerConstants = {
     radius: 25,
+    maxSpeedX: 10,
+    maxSpeedY: 50,
     hp: 100,
 }
 
@@ -23,6 +25,8 @@ export class SaucerActor extends Actor {
 
     onInitialize(_engine: Engine) {
         super.onInitialize(_engine);
+        this.vel.x = Math.random() * SaucerConstants.maxSpeedX * 2 - SaucerConstants.maxSpeedX;
+        this.vel.y = Math.random() * SaucerConstants.maxSpeedY;
     }
 
 
