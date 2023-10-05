@@ -1,6 +1,6 @@
 import {DisplayMode, Engine, Loader} from 'excalibur';
 import {LevelOne} from './scenes/level-one/level-one';
-import {Player} from './actors/player/player';
+import {PlayerActor} from './actors/player/player.actor';
 import {Resources} from './resources';
 import {MainMenu} from "./scenes/main-menu/main-menu";
 import {ScenesService} from "./services/scenes.service";
@@ -11,7 +11,7 @@ import {ServiceTypeEnum} from "./enums/service-type.enum";
  * Managed game class
  */
 export class Game extends Engine {
-  private player: Player;
+  private player: PlayerActor;
   private mainMenu: MainMenu;
   private levelOne: LevelOne;
   scenesService: ScenesService;
@@ -39,8 +39,6 @@ export class Game extends Engine {
     this.add('mainMenu', this.mainMenu);
 
     this.levelOne = new LevelOne(this.scenesService);
-    // this.player = new Player();
-    // this.levelOne.add(this.player);
     this.add('levelOne', this.levelOne);
 
 

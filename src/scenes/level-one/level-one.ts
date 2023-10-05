@@ -1,13 +1,13 @@
 import * as ex from 'excalibur';
 import {ScenesService} from "../../services/scenes.service";
-import {Player} from "../../actors/player/player";
+import {PlayerActor} from "../../actors/player/player.actor";
 
 /**
  * Managed scene
  */
 export class LevelOne extends ex.Scene {
   scenesService: ScenesService;
-  player: Player;
+  player: PlayerActor;
 
 
   constructor(scenesService: ScenesService) {
@@ -18,7 +18,7 @@ export class LevelOne extends ex.Scene {
 
   public onInitialize(engine: ex.Engine) {
     // add player
-    this.player = new Player();
+    this.player = new PlayerActor();
     this.player.pos = ex.vec(engine.drawWidth / 2, engine.drawHeight /2);
     engine.currentScene.add(this.player);
   }
