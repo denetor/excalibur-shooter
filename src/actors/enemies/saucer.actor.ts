@@ -45,6 +45,15 @@ export class SaucerActor extends Actor {
     }
 
 
+    update(engine: Engine, delta: number) {
+        super.update(engine, delta);
+        if (this.pos.x === 0 || this.pos.x >= engine.drawWidth || this.pos.y >= engine.drawHeight) {
+            this.fireTimer.stop();
+            this.kill();
+        }
+    }
+
+
     public hit(hp: number): void {
         this.hp -= hp;
         if (this.hp <= 0) {
