@@ -122,8 +122,8 @@ export class PlayerActor extends Actor {
       repeats: false,
       interval: 1000,
     });
-    engine.currentScene.add(esplosionTimer);
-    esplosionTimer.start();
+    engine.currentScene.add(explosionTimer);
+    explosionTimer.start();
   }
 
 
