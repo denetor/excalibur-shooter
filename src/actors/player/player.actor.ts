@@ -1,5 +1,5 @@
 import * as ex from "excalibur";
-import {Actor, Engine, Timer, Vector } from "excalibur";
+import {Actor, Engine, ParticleEmitter, Timer, Vector} from "excalibur";
 import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 
 const PlayerConstants = {
@@ -7,10 +7,14 @@ const PlayerConstants = {
   horizontalSpeedIncrement: 25,
   verticalMaxSpeed: 500,
   verticalSpeedIncrement: 25,
+  hp: 100,
 };
 
 export class PlayerActor extends Actor {
   public type = 'player';
+  private hp = PlayerConstants.hp;
+
+
   // actor shape, used for basic drawing and, in future, to manage collisions
   protected actorShape: Vector[];
   protected actorStatus = {
@@ -43,15 +47,83 @@ export class PlayerActor extends Actor {
       repeats: true,
       interval: this.actorStatus.cannon.fireInterval,
     });
-    engine.currentScene.add(cannonRateTimer)
-    cannonRateTimer.start()
+    engine.currentScene.add(cannonRateTimer);
+    cannonRateTimer.start();
   }
 
 
   update(engine: Engine, delta: number) {
     super.update(engine, delta);
+    this.checkHp(engine);
     this.manageKeyboardInput(engine);
     this.checkScreenBoundaries(engine);
+  }
+
+
+  /**
+   * Take a certain amount of hp
+   *
+   * @param hp
+   */
+  public hit(hp: number): void {
+    this.hp -= hp;
+  }
+
+
+  /**
+   * Detect killed actor
+   */
+  checkHp(engine: Engine): void {
+    if (this.hp <= 0) {
+      this.createExplosionEmitter(engine);
+      this.kill();
+    }
+  }
+
+
+  createExplosionEmitter(engine: Engine) {
+    const embersEmitter = new ParticleEmitter({
+      radius: 5,
+      minVel: 300,
+      maxVel: 1000,
+      minAngle: 0,
+      maxAngle: Math.PI * 2,
+      emitRate: 100,
+      opacity: 0.5,
+      fadeFlag: true,
+      particleLife: 1500,
+      maxSize: 10,
+      minSize: 2,
+    });
+    embersEmitter.color = ex.Color.Yellow;
+    embersEmitter.isEmitting = true;
+    const smokeEmitter = new ParticleEmitter({
+      radius: 5,
+      minVel: 20,
+      maxVel: 100,
+      minAngle: 0,
+      maxAngle: Math.PI * 2,
+      emitRate: 10,
+      opacity: 0.25,
+      fadeFlag: true,
+      particleLife: 3500,
+      maxSize: 25,
+      minSize: 10,
+    });
+    smokeEmitter.color = ex.Color.White;
+    smokeEmitter.isEmitting = true;
+    engine.add(embersEmitter);
+    engine.add(smokeEmitter);
+    const explosionTimer = new Timer({
+      fcn: () => {
+        smokeEmitter.kill();
+        embersEmitter.kill();
+      },
+      repeats: false,
+      interval: 1000,
+    });
+    engine.currentScene.add(esplosionTimer);
+    esplosionTimer.start();
   }
 
 

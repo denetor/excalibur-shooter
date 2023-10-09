@@ -2,12 +2,12 @@ import * as ex from "excalibur";
 import {Actor, Engine, vec} from "excalibur";
 import {SaucerActor} from "../enemies/saucer.actor";
 
-export const CannonConstants = {
+export const EnemyCannonConstants = {
     speed: 500,
-    damage: 50,
+    damage: 25,
 }
 
-export class CannonActor extends Actor {
+export class EnemyCannonActor extends Actor {
     public type = 'cannon';
 
     constructor() {
@@ -25,8 +25,8 @@ export class CannonActor extends Actor {
             if (evt.other && (evt.other as any)?.type) {
                 const targetType = (evt.other as any)?.type;
                 // if some hittable actor has been hit
-                if (['saucer'].some(element => element === targetType)) {
-                    (evt.other as any).hit(CannonConstants.damage);
+                if (['player'].some(element => element === targetType)) {
+                    (evt.other as any).hit(EnemyCannonConstants.damage);
                     evt.target.kill();
                 }
             }
