@@ -1,6 +1,5 @@
 import * as ex from "excalibur";
 import {Actor, Engine, vec} from "excalibur";
-import {SaucerActor} from "../enemies/saucer.actor";
 
 export const EnemyCannonConstants = {
     speed: 500,

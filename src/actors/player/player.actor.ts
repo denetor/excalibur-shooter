@@ -1,5 +1,5 @@
 import * as ex from "excalibur";
-import {Actor, Engine, ParticleEmitter, Timer, Vector} from "excalibur";
+import {Actor, CollisionType, Color, Engine, ParticleEmitter, PolygonCollider, Timer, Vector} from "excalibur";
 import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 
 const PlayerConstants = {
@@ -27,13 +27,16 @@ export class PlayerActor extends Actor {
 
 
   constructor() {
-    super();
+    super({
+      collisionType: CollisionType.Passive,
+    });
   }
 
 
   onInitialize(engine: Engine) {
     // actor shape
     this.actorShape = [ex.vec(-20, 20), ex.vec(0, -20), ex.vec(20, 20)];
+    this.collider.set(new PolygonCollider({points: this.actorShape}));
     this.graphics.use(new ex.Polygon({
       points: this.actorShape,
       color: ex.Color.White,
@@ -67,6 +70,8 @@ export class PlayerActor extends Actor {
    */
   public hit(hp: number): void {
     this.hp -= hp;
+    this.actions.blink(150, 40, 3);
+    this.scene.camera.shake(5, 5, 150);
   }
 
 
@@ -83,35 +88,38 @@ export class PlayerActor extends Actor {
 
   createExplosionEmitter(engine: Engine) {
     const embersEmitter = new ParticleEmitter({
-      radius: 5,
+      radius: 15,
       minVel: 300,
-      maxVel: 1000,
+      maxVel: 500,
       minAngle: 0,
       maxAngle: Math.PI * 2,
-      emitRate: 100,
-      opacity: 0.5,
+      emitRate: 50,
+      opacity: 1,
       fadeFlag: true,
-      particleLife: 1500,
-      maxSize: 10,
+      particleLife: 500,
+      beginColor: Color.Yellow,
+      endColor: Color.Yellow,
+      maxSize: 5,
       minSize: 2,
     });
-    embersEmitter.color = ex.Color.Yellow;
     embersEmitter.isEmitting = true;
+    embersEmitter.pos = this.pos;
     const smokeEmitter = new ParticleEmitter({
-      radius: 5,
-      minVel: 20,
-      maxVel: 100,
+      radius: 25,
+      minVel: 10,
+      maxVel: 75,
       minAngle: 0,
       maxAngle: Math.PI * 2,
-      emitRate: 10,
-      opacity: 0.25,
+      emitRate: 5,
+      opacity: 0.5,
       fadeFlag: true,
       particleLife: 3500,
-      maxSize: 25,
-      minSize: 10,
+      maxSize: 75,
+      minSize: 25,
     });
     smokeEmitter.color = ex.Color.White;
     smokeEmitter.isEmitting = true;
+    smokeEmitter.pos = this.pos;
     engine.add(embersEmitter);
     engine.add(smokeEmitter);
     const explosionTimer = new Timer({

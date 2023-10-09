@@ -15,6 +15,7 @@ const SaucerConstants = {
 export class SaucerActor extends Actor {
     public type = 'saucer';
     private hp = SaucerConstants.hp;
+    private fireTimer: Timer;
 
 
 
@@ -32,21 +33,22 @@ export class SaucerActor extends Actor {
         this.vel.y = Math.random() * SaucerConstants.maxSpeedY;
 
         // timer to shoot
-        const fireTimer = new Timer({
+        this.fireTimer = new Timer({
             fcn: () => {
                 this.fireCannon(engine);
             },
             repeats: true,
             interval: SaucerConstants.fireInterval,
         });
-        engine.currentScene.add(fireTimer);
-        fireTimer.start();
+        engine.currentScene.add(this.fireTimer);
+        this.fireTimer.start();
     }
 
 
     public hit(hp: number): void {
         this.hp -= hp;
         if (this.hp <= 0) {
+            this.fireTimer.stop();
             this.kill();
         }
     }
