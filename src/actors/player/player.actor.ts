@@ -98,7 +98,7 @@ export class PlayerActor extends Actor {
       fadeFlag: true,
       particleLife: 500,
       beginColor: Color.Yellow,
-      endColor: Color.Yellow,
+      endColor: new Color(255,96, 96),
       maxSize: 5,
       minSize: 2,
     });
