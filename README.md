@@ -25,8 +25,8 @@ Enemies enhancement can be:
 - [ ] more quantity
 
 Occasionally a killed enemy may spawn objects capturable by the player:
-- [ ] Cannon ammo
-- [ ] Life gem
+- [x] Cannon ammo gem
+- [x] Life gem
 - [ ] Laser gun upgrade
 - [ ] A smart missile
 
@@ -35,7 +35,8 @@ Fixed objects:
 - [ ] piping
 
 Nice to have:
-- some particle emissions in some cases (overheating?)
+- [x] particle emissions in player explosion
+
 
 
 

@@ -1,13 +1,13 @@
-import {Actor, Engine, Timer, Vector} from "excalibur";
+import {Actor, Animation, Engine, SpriteSheet, Timer, Vector} from "excalibur";
 import * as ex from "excalibur";
-import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.actor";
 import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
 import {LifeGemActor} from "../enhancements/life-gem.actor";
+import {Resources} from "../../resources";
 
 
 const SaucerConstants = {
-    radius: 25,
+    radius: 40,
     maxSpeedX: 10,
     maxSpeedY: 50,
     hp: 100,
@@ -18,21 +18,38 @@ export class SaucerActor extends Actor {
     public type = 'saucer';
     private hp = SaucerConstants.hp;
     private fireTimer: Timer;
+    private spriteSheet: SpriteSheet;
 
 
 
     constructor() {
         super({
-            radius: SaucerConstants.radius,
-            color: ex.Color.Gray,
             collisionType: ex.CollisionType.Passive,
+            collider: ex.Shape.Circle(SaucerConstants.radius),
         });
     }
 
     onInitialize(engine: Engine) {
         super.onInitialize(engine);
         this.vel.x = Math.random() * SaucerConstants.maxSpeedX * 2 - SaucerConstants.maxSpeedX;
-        this.vel.y = Math.random() * SaucerConstants.maxSpeedY;
+        this.vel.y = Math.random() * SaucerConstants.maxSpeedY * 2;
+
+        // spritesheet
+        this.spriteSheet = SpriteSheet.fromImageSource({
+            image: Resources.Saucer,
+            grid: {
+                rows: 1,
+                columns: 3,
+                spriteWidth: 79,
+                spriteHeight: 79,
+            },
+            spacing: {
+                margin: {x: 4, y: 0},
+            }
+        });
+        const mainAnimation = Animation.fromSpriteSheet(this.spriteSheet, [1,2,3], 75);
+        this.graphics.add(mainAnimation);
+        this.graphics.use(mainAnimation);
 
         // timer to shoot
         this.fireTimer = new Timer({
