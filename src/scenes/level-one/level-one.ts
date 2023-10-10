@@ -1,9 +1,10 @@
 import * as ex from 'excalibur';
 import {ScenesService} from "../../services/scenes.service";
 import {PlayerActor} from "../../actors/player/player.actor";
-import {Timer} from "excalibur";
+import {Engine, Timer} from "excalibur";
 import {SaucerActor} from "../../actors/enemies/saucer.actor";
 import {LevelOneBgActor} from "../../actors/backgrounds/level-one-bg.actor";
+import {DashboardActor} from "../../actors/dashboard/dashboard.actor";
 
 /**
  * Managed scene
@@ -12,6 +13,7 @@ export class LevelOne extends ex.Scene {
   scenesService: ScenesService;
   bg: LevelOneBgActor;
   player: PlayerActor;
+  dashboard: DashboardActor;
 
 
   constructor(scenesService: ScenesService) {
@@ -31,6 +33,10 @@ export class LevelOne extends ex.Scene {
     this.player.pos = ex.vec(engine.drawWidth / 2, engine.drawHeight /2);
     engine.currentScene.add(this.player);
 
+    // add dashboard
+    this.dashboard = new DashboardActor();
+    engine.currentScene.add(this.dashboard);
+
     // timer to spawn saucers
     const saucerTimer = new Timer({
       fcn: () => {
@@ -39,10 +45,16 @@ export class LevelOne extends ex.Scene {
         engine.currentScene.add(saucer);
       },
       repeats: true,
-      interval: 1000,
+      interval: 5000,
     });
     engine.currentScene.add(saucerTimer);
     saucerTimer.start();
+  }
+
+  onPreUpdate(engine: Engine, delta: number) {
+    super.onPreUpdate(engine, delta);
+    this.dashboard.setLife(this.player.getHp());
+    this.dashboard.setAmmo(this.player.getCannonAmmo());
   }
 
   public onActivate() {}

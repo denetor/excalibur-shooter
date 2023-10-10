@@ -16,11 +16,8 @@ export class MainMenu extends ex.Scene {
         // add start button
         const startButton = new ex.Actor({
             name: 'startButton',
-            // width: 100,
-            // height: 25,
             x: engine.drawWidth / 2,
             y: engine.drawHeight / 2,
-            // color: ex.Color.White,
         });
         const startText = new ex.Text({
             text: 'Start',

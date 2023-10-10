@@ -12,14 +12,16 @@ const PlayerConstants = {
 
 export class PlayerActor extends Actor {
   public type = 'player';
-  private hp = PlayerConstants.hp;
 
 
   // actor shape, used for basic drawing and, in future, to manage collisions
   protected actorShape: Vector[];
+
+  // actor status, stored here
   protected actorStatus = {
+    hp: PlayerConstants.hp,
     cannon: {
-      ammo: 100,
+      ammo: 500,
       fireInterval: 100,
       exceededRate: false,
     }
@@ -69,9 +71,17 @@ export class PlayerActor extends Actor {
    * @param hp
    */
   public hit(hp: number): void {
-    this.hp -= hp;
+    this.actorStatus.hp -= hp;
     this.actions.blink(150, 40, 3);
     this.scene.camera.shake(5, 5, 150);
+  }
+
+
+  public getHp(): number {
+    return this.actorStatus.hp;
+  }
+  public getCannonAmmo(): number {
+    return this.actorStatus.cannon.ammo;
   }
 
 
@@ -79,7 +89,7 @@ export class PlayerActor extends Actor {
    * Detect killed actor
    */
   checkHp(engine: Engine): void {
-    if (this.hp <= 0) {
+    if (this.actorStatus.hp <= 0) {
       this.createExplosionEmitter(engine);
       this.kill();
     }

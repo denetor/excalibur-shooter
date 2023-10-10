@@ -3,7 +3,7 @@ import {Actor, Engine, vec} from "excalibur";
 
 export const EnemyCannonConstants = {
     speed: 500,
-    damage: 25,
+    damage: 10,
 }
 
 export class EnemyCannonActor extends Actor {
