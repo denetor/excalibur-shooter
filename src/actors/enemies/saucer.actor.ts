@@ -2,6 +2,8 @@ import {Actor, Engine, Timer, Vector} from "excalibur";
 import * as ex from "excalibur";
 import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.actor";
+import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
+import {LifeGemActor} from "../enhancements/life-gem.actor";
 
 
 const SaucerConstants = {
@@ -35,7 +37,7 @@ export class SaucerActor extends Actor {
         // timer to shoot
         this.fireTimer = new Timer({
             fcn: () => {
-                this.fireCannon(engine);
+                this.fireCannon();
             },
             repeats: true,
             interval: SaucerConstants.fireInterval,
@@ -54,10 +56,12 @@ export class SaucerActor extends Actor {
     }
 
 
+
     public hit(hp: number): void {
         this.hp -= hp;
         if (this.hp <= 0) {
             this.fireTimer.stop();
+            this.castGem();
             this.kill();
         }
     }
@@ -67,11 +71,25 @@ export class SaucerActor extends Actor {
      * Fire a cannon ammo
      * @param engine
      */
-    fireCannon(engine: Engine) {
+    protected fireCannon() {
         const cannon = new EnemyCannonActor();
         cannon.pos = ex.vec(this.pos.x, this.pos.y + 25);
         cannon.vel = ex.vec(0, EnemyCannonConstants.speed);
-        engine.currentScene.add(cannon);
+        this.scene.add(cannon);
+    }
+
+
+    protected castGem(): void {
+        const dice = Math.random() * 100;
+        if (dice <= 5) {
+            const gem = new AmmoGemActor();
+            gem.pos = ex.vec(this.pos.x, this.pos.y);
+            this.scene.add(gem);
+        } else if (dice <= 10) {
+            const gem = new LifeGemActor();
+            gem.pos = ex.vec(this.pos.x, this.pos.y);
+            this.scene.add(gem);
+        }
     }
 
 }

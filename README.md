@@ -13,25 +13,26 @@ Each scene scrolls upwards, has a NASA picture as background and the fixed objec
 
 Enemies are spawned randomly, with more frequency and more power towards the end of each level.
 There are some enemy races:
-- Asteroid: going randomly but straight. Destroyed when hitting a ship or a fixed object, or being hit several times
-- Basic: going straight, firing cannon only downwards
-- Medium: slow and armoured, pointing towards the player, firing cannon and occasionally missiles.
-- Hard: quick and armoured, firing cannon towards the player and missiles, each one following their leader, mving round and towards the player
+- [ ] Asteroid: going randomly but straight. Destroyed when hitting a ship or a fixed object, or being hit several times
+- [x] Basic: going straight, firing cannon only downwards
+- [ ] Medium: slow and armoured, pointing towards the player, firing cannon and occasionally missiles.
+- [ ] Hard: quick and armoured, firing cannon towards the player and missiles, each one following their leader, mving round and towards the player
 
-Enemies ehnhanchements can be:
-- more fire rate
-- more life
-- more speed
-- more quantity
+Enemies enhancement can be:
+- [ ] more fire rate
+- [ ] more life
+- [ ] more speed
+- [ ] more quantity
 
 Occasionally a killed enemy may spawn objects capturable by the player:
-- Life gem
-- Laser gun upgrade
-- A smart missile
+- [ ] Cannon ammo
+- [ ] Life gem
+- [ ] Laser gun upgrade
+- [ ] A smart missile
 
 Fixed objects:
-- crate
-- piping
+- [ ] crate
+- [ ] piping
 
 Nice to have:
 - some particle emissions in some cases (overheating?)

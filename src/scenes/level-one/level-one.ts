@@ -5,6 +5,7 @@ import {Engine, Timer} from "excalibur";
 import {SaucerActor} from "../../actors/enemies/saucer.actor";
 import {LevelOneBgActor} from "../../actors/backgrounds/level-one-bg.actor";
 import {DashboardActor} from "../../actors/dashboard/dashboard.actor";
+import {AmmoGemActor} from "../../actors/enhancements/ammo-gem.actor";
 
 /**
  * Managed scene

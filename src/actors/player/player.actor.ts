@@ -77,6 +77,26 @@ export class PlayerActor extends Actor {
   }
 
 
+  /**
+   * Give a certain amount of HP
+   *
+   * @param hp
+   */
+  public giveHp(hp: number): void {
+    this.actorStatus.hp += hp;
+  }
+
+
+  /**
+   * Give a certain amount of cannon ammo
+   *
+   * @param ammo
+   */
+  public giveCannonAmmo(ammo: number): void {
+    this.actorStatus.cannon.ammo += ammo;
+  }
+
+
   public getHp(): number {
     return this.actorStatus.hp;
   }
