@@ -6,6 +6,7 @@ import {SaucerActor} from "../../actors/enemies/saucer.actor";
 import {LevelOneBgActor} from "../../actors/backgrounds/level-one-bg.actor";
 import {DashboardActor} from "../../actors/dashboard/dashboard.actor";
 import {AmmoGemActor} from "../../actors/enhancements/ammo-gem.actor";
+import {AsteroidActor} from "../../actors/enemies/asteroid.actor";
 
 /**
  * Managed scene
@@ -50,6 +51,19 @@ export class LevelOne extends ex.Scene {
     });
     engine.currentScene.add(saucerTimer);
     saucerTimer.start();
+
+    // timer to spawn asteroids
+    const asteroidTimer = new Timer({
+      fcn: () => {
+        const asteroid = new AsteroidActor();
+        asteroid.pos = ex.vec(Math.random() * engine.drawWidth, Math.random() * 100);
+        engine.currentScene.add(asteroidTimer);
+      },
+      repeats: true,
+      interval: 2000,
+    });
+    engine.currentScene.add(asteroidTimer);
+    asteroidTimer.start();
   }
 
   onPreUpdate(engine: Engine, delta: number) {

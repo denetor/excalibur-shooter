@@ -8,6 +8,7 @@ const PlayerConstants = {
   verticalMaxSpeed: 500,
   verticalSpeedIncrement: 25,
   hp: 100,
+  weight: 100,
 };
 
 export class PlayerActor extends Actor {
@@ -54,6 +55,18 @@ export class PlayerActor extends Actor {
     });
     engine.currentScene.add(cannonRateTimer);
     cannonRateTimer.start();
+
+    // collisions
+    this.on('collisionstart', (evt) => {
+      if (evt.other && (evt.other as any)?.type) {
+        const targetType = (evt.other as any)?.type;
+        // if some hittable actor has been hit
+        if (['asteroid', 'saucer'].some(element => element === targetType)) {
+          (evt.other as any).hit(this.getCollisionDamage());
+          evt.target.kill();
+        }
+      }
+    });
   }
 
 
@@ -94,6 +107,19 @@ export class PlayerActor extends Actor {
    */
   public giveCannonAmmo(ammo: number): void {
     this.actorStatus.cannon.ammo += ammo;
+  }
+
+
+  /**
+   * Returns the amount of HP inflicted to other actors when colliding.
+   *
+   * Damage is based on actor HPs and on actor speed*weight.
+   */
+  getCollisionDamage(): number {
+    const speed = Math.sqrt(this.vel.x * this.vel.x + this.vel.y * this.vel.y);
+    const hpPerc = this.actorStatus.hp / PlayerConstants.hp;
+    const energy = PlayerConstants.weight * speed;
+    return energy * hpPerc / 3;
   }
 
 

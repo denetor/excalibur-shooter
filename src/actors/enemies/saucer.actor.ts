@@ -9,7 +9,7 @@ import {Resources} from "../../resources";
 const SaucerConstants = {
     radius: 40,
     maxSpeedX: 10,
-    maxSpeedY: 50,
+    maxSpeedY: 100,
     hp: 100,
     fireInterval: 1000,
 }
@@ -32,7 +32,7 @@ export class SaucerActor extends Actor {
     onInitialize(engine: Engine) {
         super.onInitialize(engine);
         this.vel.x = Math.random() * SaucerConstants.maxSpeedX * 2 - SaucerConstants.maxSpeedX;
-        this.vel.y = Math.random() * SaucerConstants.maxSpeedY * 2;
+        this.vel.y = Math.random() * SaucerConstants.maxSpeedY;
 
         // spritesheet
         this.spriteSheet = SpriteSheet.fromImageSource({

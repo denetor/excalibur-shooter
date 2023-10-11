@@ -28,6 +28,9 @@ export class CannonActor extends Actor {
                 if (['saucer'].some(element => element === targetType)) {
                     (evt.other as any).hit(CannonConstants.damage);
                     evt.target.kill();
+                } else if (['asteroid'].some(element => element === targetType)) {
+                    (evt.other as any).hit(CannonConstants.damage);
+                    evt.target.kill();
                 }
             }
         });
