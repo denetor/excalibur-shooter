@@ -22,34 +22,38 @@ export class AsteroidActor extends Actor {
 
     constructor() {
         super({
+            radius: 50,
+            color: ex.Color.Red,
             collisionType: ex.CollisionType.Passive,
         });
     }
 
     onInitialize(engine: Engine) {
         super.onInitialize(engine);
+        console.log('AsteroidActor.onInitialize()');
+        console.log(`(${this.pos.x}, ${this.pos.y}`);
         this.vel.x = Math.random() * AsteroidConstants.maxSpeedX * 2 - AsteroidConstants.maxSpeedX;
         this.vel.y = Math.random() * AsteroidConstants.maxSpeedY + 50;
 
         // shape and collider
-        this.size = Math.random()*4 +1;
-        this.actorShape = [
-            ex.vec(0, -10*this.size),
-            ex.vec(-7*this.size, -7*this.size),
-            ex.vec(-8*this.size, 0),
-            ex.vec(-10*this.size, -10*this.size),
-            ex.vec(4*this.size, -12*this.size),
-            ex.vec(14*this.size, -4*this.size),
-            ex.vec(15*this.size, 0),
-            ex.vec(5*this.size, -4*this.size),
-            ex.vec(0, -10*this.size),
-        ];
-        this.collider.set(new PolygonCollider({points: this.actorShape}));
-        this.graphics.use(new ex.Polygon({
-            points: this.actorShape,
-            color: new ex.Color(255, 180, 90),
-        }));
-        this.actions.rotateBy(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
+        // this.size = Math.random()*4 +1;
+        // this.actorShape = [
+        //     ex.vec(0, -10*this.size),
+        //     ex.vec(-7*this.size, -7*this.size),
+        //     ex.vec(-8*this.size, 0),
+        //     ex.vec(-10*this.size, -10*this.size),
+        //     ex.vec(4*this.size, -12*this.size),
+        //     ex.vec(14*this.size, -4*this.size),
+        //     ex.vec(15*this.size, 0),
+        //     ex.vec(5*this.size, -4*this.size),
+        //     ex.vec(0, -10*this.size),
+        // ];
+        // this.collider.set(new PolygonCollider({points: this.actorShape}));
+        // this.graphics.use(new ex.Polygon({
+        //     points: this.actorShape,
+        //     color: new ex.Color(255, 180, 90),
+        // }));
+        // this.actions.rotateBy(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
 
         // stats
         this.hp = AsteroidConstants.hpPerSize * this.size;

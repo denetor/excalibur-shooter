@@ -40,21 +40,22 @@ export class LevelOne extends ex.Scene {
     engine.currentScene.add(this.dashboard);
 
     // timer to spawn saucers
-    const saucerTimer = new Timer({
-      fcn: () => {
-        const saucer = new SaucerActor();
-        saucer.pos = ex.vec(Math.random() * engine.drawWidth, Math.random() * 100);
-        engine.currentScene.add(saucer);
-      },
-      repeats: true,
-      interval: 5000,
-    });
-    engine.currentScene.add(saucerTimer);
-    saucerTimer.start();
+    // const saucerTimer = new Timer({
+    //   fcn: () => {
+    //     const saucer = new SaucerActor();
+    //     saucer.pos = ex.vec(Math.random() * engine.drawWidth, Math.random() * 100);
+    //     engine.currentScene.add(saucer);
+    //   },
+    //   repeats: true,
+    //   interval: 5000,
+    // });
+    // engine.currentScene.add(saucerTimer);
+    // saucerTimer.start();
 
     // timer to spawn asteroids
     const asteroidTimer = new Timer({
       fcn: () => {
+        console.log('asteroidTimer.fcn()');
         const asteroid = new AsteroidActor();
         asteroid.pos = ex.vec(Math.random() * engine.drawWidth, Math.random() * 100);
         engine.currentScene.add(asteroidTimer);
