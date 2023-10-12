@@ -13,7 +13,7 @@ Each scene scrolls upwards, has a NASA picture as background and the fixed objec
 
 Enemies are spawned randomly, with more frequency and more power towards the end of each level.
 There are some enemy races:
-- [ ] Asteroid: going randomly but straight. Destroyed when hitting a ship or a fixed object, or being hit several times
+- [x] Asteroid: going randomly but straight. Destroyed when hitting a ship or a fixed object, or being hit several times
 - [x] Basic: going straight, firing cannon only downwards
 - [ ] Medium: slow and armoured, pointing towards the player, firing cannon and occasionally missiles.
 - [ ] Hard: quick and armoured, firing cannon towards the player and missiles, each one following their leader, mving round and towards the player
@@ -36,6 +36,8 @@ Fixed objects:
 
 Nice to have:
 - [x] particle emissions in player explosion
+
+Some open sprite can be found here: https://opengameart.org/content/2d-complete-kit
 
 
 
