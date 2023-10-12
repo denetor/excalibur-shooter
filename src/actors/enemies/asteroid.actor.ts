@@ -4,6 +4,7 @@ import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.ac
 import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
 import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {Resources} from "../../resources";
+import {ExplosionService} from "../../services/explosion.service";
 
 
 const AsteroidConstants = {
@@ -74,6 +75,10 @@ export class AsteroidActor extends Actor {
 
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
+        if (this.hp <= 0) {
+            ExplosionService.explodeAsteroid(engine, {pos: this.pos});
+            this.kill();
+        }
         if (this.pos.x === 0 || this.pos.x >= engine.drawWidth || this.pos.y >= engine.drawHeight) {
             this.kill();
         }
@@ -83,9 +88,6 @@ export class AsteroidActor extends Actor {
 
     public hit(hp: number): void {
         this.hp -= hp;
-        if (this.hp <= 0) {
-            this.kill();
-        }
     }
 
 }

@@ -4,6 +4,7 @@ import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.ac
 import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
 import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {Resources} from "../../resources";
+import {ExplosionService} from "../../services/explosion.service";
 
 
 const SaucerConstants = {
@@ -66,6 +67,7 @@ export class SaucerActor extends Actor {
 
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
+        this.checkHp(engine);
         if (this.pos.x === 0 || this.pos.x >= engine.drawWidth || this.pos.y >= engine.drawHeight) {
             this.fireTimer.stop();
             this.kill();
@@ -76,8 +78,13 @@ export class SaucerActor extends Actor {
 
     public hit(hp: number): void {
         this.hp -= hp;
+    }
+
+
+    checkHp(engine: Engine): void {
         if (this.hp <= 0) {
             this.fireTimer.stop();
+            ExplosionService.explode(engine, {pos: this.pos});
             this.castGem();
             this.kill();
         }
