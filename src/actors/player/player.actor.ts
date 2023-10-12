@@ -62,8 +62,9 @@ export class PlayerActor extends Actor {
         const targetType = (evt.other as any)?.type;
         // if some hittable actor has been hit
         if (['asteroid', 'saucer'].some(element => element === targetType)) {
-          (evt.other as any).hit(this.getCollisionDamage());
-          evt.target.kill();
+          const collisionHp = this.getCollisionDamage();
+          (evt.other as any).hit(collisionHp);
+          this.hit(collisionHp);
         }
       }
     });
@@ -116,10 +117,9 @@ export class PlayerActor extends Actor {
    * Damage is based on actor HPs and on actor speed*weight.
    */
   getCollisionDamage(): number {
-    const speed = Math.sqrt(this.vel.x * this.vel.x + this.vel.y * this.vel.y);
-    const hpPerc = this.actorStatus.hp / PlayerConstants.hp;
-    const energy = PlayerConstants.weight * speed;
-    return energy * hpPerc / 3;
+    const speed = Math.trunc(Math.sqrt(this.vel.x * this.vel.x + this.vel.y * this.vel.y));
+    const hpPerc = 1 - (PlayerConstants.hp - this.actorStatus.hp) / PlayerConstants.hp;
+    return speed * hpPerc / 5;
   }
 
 
