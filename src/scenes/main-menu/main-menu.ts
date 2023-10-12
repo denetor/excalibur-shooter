@@ -1,5 +1,6 @@
 import * as ex from "excalibur";
 import {ScenesService} from "../../services/scenes.service";
+import {ExplosionService} from "../../services/explosion.service";
 
 /**
  * Main menu scene

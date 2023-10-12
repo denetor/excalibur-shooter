@@ -54,7 +54,10 @@ export class AsteroidActor extends Actor {
             points: this.actorShape,
             color: new ex.Color(139,69,19),
         }));
-        this.actions.rotateBy(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
+        this.actions.repeatForever((ctx => {
+            ctx.rotateTo(Math.PI, Math.PI / this.size, ex.RotationType.CounterClockwise).rotateTo(Math.PI*2, Math.PI / this.size, ex.RotationType.CounterClockwise);
+        }));
+        // this.actions.rotateBy(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
 
         // stats
         this.hp = AsteroidConstants.hpPerSize * this.size;

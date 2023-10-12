@@ -63,14 +63,15 @@ export class ExplosionService {
             emitRate: 10,
             opacity: 1,
             fadeFlag: true,
-            particleLife: 800,
-            beginColor: new ex.Color(139,69,19),
+            particleLife: 300,
+            beginColor: new ex.Color(139,69,19).darken(1),
             endColor: new ex.Color(139,69,19),
             maxSize: 10,
-            minSize: 6,
+            minSize: 4,
         });
         embersEmitter.isEmitting = true;
         embersEmitter.pos = options.pos;
+        engine.add(embersEmitter);
         const explosionTimer = new Timer({
             fcn: () => {
                 embersEmitter.kill();
