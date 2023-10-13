@@ -48,7 +48,7 @@ export class SaucerActor extends Actor {
                 margin: {x: 4, y: 0},
             }
         });
-        const mainAnimation = Animation.fromSpriteSheet(this.spriteSheet, [1,2,3], 75);
+        const mainAnimation = Animation.fromSpriteSheet(this.spriteSheet, [0,1,2,1], 75);
         this.graphics.add(mainAnimation);
         this.graphics.use(mainAnimation);
 

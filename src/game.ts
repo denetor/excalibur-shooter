@@ -18,7 +18,9 @@ export class Game extends Engine {
 
   constructor() {
     super({
-      displayMode: DisplayMode.FillScreen
+      width: 800,
+      height: 800,
+      displayMode: DisplayMode.FitScreen,
     });
   }
 
