@@ -4,6 +4,10 @@ import asteroidSmall from './images/meteorSmall.png';
 import laserGreen from './images/laserGreen.png';
 import laserRed from './images/laserRed.png';
 import levelOneBg from './images/backgrounds/level-one.png';
+import player from './images/player.png';
+import playerLeft from './images/playerLeft.png';
+import playerRight from './images/playerRight.png';
+import playerDamaged from './images/playerDamaged.png';
 import starBig from './images/starBig.png';
 import starSmall from './images/starSmall.png';
 import saucer from './images/enemyUFO.png';
@@ -20,6 +24,10 @@ const Resources = {
     LaserGreen: new ImageSource(laserGreen),
     LaserRed: new ImageSource(laserRed),
     LevelOneBg: new ImageSource(levelOneBg),
+    Player: new ImageSource(player),
+    PlayerLeft: new ImageSource(playerLeft),
+    PlayerRight: new ImageSource(playerRight),
+    PlayerDamaged: new ImageSource(playerDamaged),
     Saucer: new ImageSource(saucer),
     StarBig: new ImageSource(starBig),
     StarSmall: new ImageSource(starSmall),

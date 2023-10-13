@@ -1,7 +1,7 @@
-import * as ex from "excalibur";
-import {Actor, CollisionType, Color, Engine, ParticleEmitter, PolygonCollider, Timer, Vector} from "excalibur";
+import {Actor, CollisionType, Color, Engine, Keys, ParticleEmitter, Polygon, PolygonCollider, Sprite, Timer, vec, Vector} from "excalibur";
 import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 import {ExplosionService} from "../../services/explosion.service";
+import {Resources} from "../../resources";
 
 const PlayerConstants = {
   horizontalMaxSpeed: 500,
@@ -10,15 +10,19 @@ const PlayerConstants = {
   verticalSpeedIncrement: 25,
   minSpeedY: 25,
   hp: 100,
+  hpDamage: 30,
   weight: 100,
 };
 
 export class PlayerActor extends Actor {
   public type = 'player';
 
-
   // actor shape, used for basic drawing and, in future, to manage collisions
   protected actorShape: Vector[];
+  protected sprite: Sprite;
+  protected spriteRight: Sprite;
+  protected spriteLeft: Sprite;
+  protected spriteDamaged: Sprite;
 
   // actor status, stored here
   protected actorStatus = {
@@ -40,12 +44,23 @@ export class PlayerActor extends Actor {
 
   onInitialize(engine: Engine) {
     // actor shape
-    this.actorShape = [ex.vec(-20, 20), ex.vec(0, -20), ex.vec(20, 20)];
+    this.actorShape = [vec(-20, 20), vec(0, -20), vec(20, 20)];
     this.collider.set(new PolygonCollider({points: this.actorShape}));
-    this.graphics.use(new ex.Polygon({
-      points: this.actorShape,
-      color: ex.Color.White,
-    }));
+    // this.graphics.use(new Polygon({
+    //   points: this.actorShape,
+    //   color: Color.White,
+    // }));
+
+    // set sprites
+    this.sprite = Resources.Player.toSprite();
+    this.spriteRight = Resources.PlayerRight.toSprite();
+    this.spriteLeft = Resources.PlayerLeft.toSprite();
+    this.spriteDamaged = Resources.PlayerDamaged.toSprite();
+    this.sprite.destSize = {width: 50, height: 38};
+    this.spriteRight.destSize = {width: 45, height: 38};
+    this.spriteLeft.destSize = {width: 45, height: 38};
+    this.spriteDamaged.destSize = {width: 50, height: 38};
+    this.graphics.use(this.sprite);
 
     // timer to re-enable cannon fire (simulated max fire rate)
     const cannonRateTimer = new Timer({
@@ -150,19 +165,26 @@ export class PlayerActor extends Actor {
    * Responds to user input
    */
   manageKeyboardInput(engine: Engine): void {
-    if (engine.input.keyboard.isHeld(ex.Keys.ArrowRight)) {
+    if (engine.input.keyboard.isHeld(Keys.ArrowRight)) {
       this.moveRight();
-    }
-    if (engine.input.keyboard.isHeld(ex.Keys.ArrowLeft)) {
+      this.graphics.use(this.spriteRight);
+    } else if (engine.input.keyboard.isHeld(Keys.ArrowLeft)) {
       this.moveLeft();
+      this.graphics.use(this.spriteLeft);
+    } else {
+      if (this.getHp() > PlayerConstants.hpDamage) {
+        this.graphics.use(this.sprite);
+      } else {
+        this.graphics.use(this.spriteDamaged);
+      }
     }
-    if (engine.input.keyboard.isHeld(ex.Keys.ArrowUp)) {
+    if (engine.input.keyboard.isHeld(Keys.ArrowUp)) {
       this.moveUp();
     }
-    if (engine.input.keyboard.isHeld(ex.Keys.ArrowDown)) {
+    if (engine.input.keyboard.isHeld(Keys.ArrowDown)) {
       this.moveDown();
     }
-    if (engine.input.keyboard.isHeld(ex.Keys.Space)) {
+    if (engine.input.keyboard.isHeld(Keys.Space)) {
       this.fireCannon(engine);
     }
   }
@@ -215,8 +237,8 @@ export class PlayerActor extends Actor {
     // fire only if ammo is available and limit fire rate
     if (this.actorStatus.cannon.ammo && !this.actorStatus.cannon.exceededRate) {
       const cannon = new CannonActor();
-      cannon.pos = ex.vec(this.pos.x, this.pos.y - 25);
-      cannon.vel = ex.vec(0, -CannonConstants.speed);
+      cannon.pos = vec(this.pos.x, this.pos.y - 25);
+      cannon.vel = vec(0, -CannonConstants.speed);
       engine.currentScene.add(cannon);
       this.actorStatus.cannon.ammo--;
       this.actorStatus.cannon.exceededRate = true;
