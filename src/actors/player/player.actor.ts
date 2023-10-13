@@ -77,6 +77,8 @@ export class PlayerActor extends Actor {
     this.checkHp(engine);
     this.manageKeyboardInput(engine);
     this.checkScreenBoundaries(engine);
+    this.checkMinimumSpeed(engine);
+    this.moveCamera(engine);
   }
 
 
@@ -177,14 +179,30 @@ export class PlayerActor extends Actor {
       this.pos.x = engine.drawWidth;
       this.vel.x = 0;
     }
-    if (this.pos.y < 0) {
-      this.pos.y = 0;
-      this.vel.y = 0;
+    if (this.pos.y < this.scene.camera.y - engine.drawHeight/2) {
+      this.pos.y = this.scene.camera.y - engine.drawHeight/2;
+      //this.vel.y = 0;
     }
     if (this.pos.y > engine.drawHeight) {
-      this.pos.y = engine.drawHeight;
-      this.vel.y = 0;
+      this.pos.y = this.scene.camera.y + engine.drawHeight/2;
+      //this.vel.y = 0;
     }
+  }
+
+
+  /**
+   * Maintains minimum scroll Y speed at a positive level
+   *
+   * @param engine
+   */
+  checkMinimumSpeed(engine: Engine): void {
+    if (this.vel.y > -10) {
+      this.vel.y = -10;
+    }
+  }
+
+  moveCamera(engine: Engine): void {
+    this.scene.camera.y = this.pos.y - engine.drawHeight/3;
   }
 
 

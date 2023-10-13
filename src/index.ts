@@ -8,5 +8,6 @@ const scenesService = new ScenesService(game);
 game.addService(ServiceTypeEnum.ScenesService, scenesService);
 // const devtool = new DevTool(game);
 game.start().then(() => {
-  scenesService.goTo('mainMenu');
+  // scenesService.goTo('mainMenu');
+  scenesService.goTo('scrollingLevel');
 });

@@ -5,6 +5,7 @@ import {Resources} from './resources';
 import {MainMenu} from "./scenes/main-menu/main-menu";
 import {ScenesService} from "./services/scenes.service";
 import {ServiceTypeEnum} from "./enums/service-type.enum";
+import {ScrollingLevel} from "./scenes/scrolling.level";
 
 
 /**
@@ -14,6 +15,7 @@ export class Game extends Engine {
   private player: PlayerActor;
   private mainMenu: MainMenu;
   private levelOne: LevelOne;
+  private scrollingLevel: ScrollingLevel;
   scenesService: ScenesService;
 
   constructor() {
@@ -42,6 +44,9 @@ export class Game extends Engine {
 
     this.levelOne = new LevelOne(this.scenesService);
     this.add('levelOne', this.levelOne);
+
+    this.scrollingLevel = new ScrollingLevel();
+    this.add('scrollingLevel', this.scrollingLevel);
 
     const loader = new Loader(Object.values(Resources));
     return super.start(loader);
