@@ -9,6 +9,7 @@ import {AsteroidActor} from "../actors/enemies/asteroid.actor";
  * Livello con scrolling verticale
  */
 export class ScrollingLevel extends Scene {
+    bg: Actor;
     player: PlayerActor;
     dashboard: DashboardActor;
 
@@ -37,24 +38,30 @@ export class ScrollingLevel extends Scene {
         engine.currentScene.add(ast1);
     }
 
+    onPostUpdate(engine: Engine, delta: number) {
+        super.onPostUpdate(engine, delta);
+        if (this.bg) {
+            this.bg.pos = this.camera.pos;
+        }
+    }
+
 
     /**
-     * Attach a solid background to the background
+     * Attach a solid background to the background.
+     *
+     * Background is a simple rectangle larger than the screen, always kept centered over the camera
      *
      * @param engine
      * @private
      */
     private addSolidBackground(engine: Engine) {
-        const bg = new Actor({
-            x: 0,
-            y: 0,
-            width: engine.drawWidth,
-            height: engine.drawHeight,
+        this.bg = new Actor({
+            width: engine.drawWidth * 2,
+            height: engine.drawHeight * 2,
             color: Color.fromRGB(94,63,107),
         });
-        bg.z = -99;
-        bg.anchor = vec(0,0);
-        this.add(bg);
+        this.bg.z = -99;
+        this.add(this.bg);
     }
 
     /**
