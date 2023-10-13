@@ -1,5 +1,5 @@
-import * as ex from "excalibur";
-import {Actor, Engine, vec} from "excalibur";
+import {Actor, CollisionType, Color, Engine, vec} from "excalibur";
+import { Resources } from "../../resources";
 
 export const EnemyCannonConstants = {
     speed: 500,
@@ -12,13 +12,17 @@ export class EnemyCannonActor extends Actor {
     constructor() {
         super({
             radius: 4,
-            color: ex.Color.Yellow,
-            collisionType: ex.CollisionType.Passive,
+            color: Color.Yellow,
+            collisionType: CollisionType.Passive,
         });
     }
 
-    onInitialize(_engine: Engine) {
-        super.onInitialize(_engine);
+    onInitialize(engine: Engine) {
+        super.onInitialize(engine);
+
+        const sprite = Resources.LaserGreen.toSprite();
+        sprite.destSize = {width: 3, height: 11};
+        this.graphics.use(sprite);
 
         this.on('collisionstart', (evt) => {
             if (evt.other && (evt.other as any)?.type) {

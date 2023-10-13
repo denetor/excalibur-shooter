@@ -8,6 +8,7 @@ const PlayerConstants = {
   horizontalSpeedIncrement: 25,
   verticalMaxSpeed: 500,
   verticalSpeedIncrement: 25,
+  minSpeedY: 25,
   hp: 100,
   weight: 100,
 };
@@ -196,8 +197,8 @@ export class PlayerActor extends Actor {
    * @param engine
    */
   checkMinimumSpeed(engine: Engine): void {
-    if (this.vel.y > -10) {
-      this.vel.y = -10;
+    if (this.vel.y > -PlayerConstants.minSpeedY) {
+      this.vel.y = -PlayerConstants.minSpeedY;
     }
   }
 
