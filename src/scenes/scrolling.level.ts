@@ -1,13 +1,16 @@
 import {Actor, Axis, CollisionType, Color, Engine, Random, Scene, vec} from "excalibur";
+import { DashboardActor } from "../actors/dashboard/dashboard.actor";
 import {PlayerActor} from "../actors/player/player.actor";
 import {Resources} from "../resources";
+import {SaucerActor} from "../actors/enemies/saucer.actor";
+import {AsteroidActor} from "../actors/enemies/asteroid.actor";
 
 /**
  * Livello con scrolling verticale
  */
 export class ScrollingLevel extends Scene {
     player: PlayerActor;
-    // boxes = [];
+    dashboard: DashboardActor;
 
     onInitialize(engine: Engine): void {
         this.addSolidBackground(engine);
@@ -18,10 +21,20 @@ export class ScrollingLevel extends Scene {
         this.player.pos = vec(engine.drawWidth / 2, engine.drawHeight /2);
         this.add(this.player);
 
-        // make camera follow the player
-        // this.camera.strategy.lockToActorAxis(this.player, Axis.Y);
-        // this.camera.strategy.radiusAroundActor(this.player, engine.drawHeight /2);
-        // this.camera.strategy.elasticToActor(this.player, 0.5, 0.5);
+        // TODO fix dashboard
+        // add dashboard
+        this.dashboard = new DashboardActor();
+        engine.currentScene.add(this.dashboard);
+
+        // add test saucer
+        const saucer = new SaucerActor();
+        saucer.pos = vec(100, -500);
+        engine.currentScene.add(saucer);
+
+        // add test asteroid
+        const ast1 = new AsteroidActor();
+        ast1.pos = vec(300, -500);
+        engine.currentScene.add(ast1);
     }
 
 

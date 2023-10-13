@@ -36,21 +36,29 @@ export class SaucerActor extends Actor {
         this.vel.y = Math.random() * SaucerConstants.maxSpeedY;
 
         // spritesheet
-        this.spriteSheet = SpriteSheet.fromImageSource({
-            image: Resources.Saucer,
-            grid: {
-                rows: 1,
-                columns: 3,
-                spriteWidth: 79,
-                spriteHeight: 79,
-            },
-            spacing: {
-                margin: {x: 4, y: 0},
-            }
-        });
-        const mainAnimation = Animation.fromSpriteSheet(this.spriteSheet, [0,1,2,1], 75);
-        this.graphics.add(mainAnimation);
-        this.graphics.use(mainAnimation);
+        // this.spriteSheet = SpriteSheet.fromImageSource({
+        //     image: Resources.Saucer,
+        //     grid: {
+        //         rows: 1,
+        //         columns: 3,
+        //         spriteWidth: 79,
+        //         spriteHeight: 79,
+        //     },
+        //     spacing: {
+        //         margin: {x: 4, y: 0},
+        //     }
+        // });
+        // const mainAnimation = Animation.fromSpriteSheet(this.spriteSheet, [0,1,2,1], 75);
+        // this.graphics.add(mainAnimation);
+        // this.graphics.use(mainAnimation);
+
+        // single sprite, rotating
+        const sprite = Resources.Saucer.toSprite();
+        sprite.destSize = {width: 40, height: 40};
+        this.graphics.use(sprite);
+        this.actions.repeatForever((ctx => {
+            ctx.rotateTo(Math.PI, Math.PI / 2, ex.RotationType.CounterClockwise).rotateTo(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
+        }));
 
         // timer to shoot
         this.fireTimer = new Timer({

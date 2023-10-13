@@ -1,4 +1,4 @@
-import {Actor, Animation, Engine, PolygonCollider, SpriteSheet, Timer, Vector} from "excalibur";
+import {Actor, Animation, CircleCollider, Engine, PolygonCollider, Random, SpriteSheet, Timer, Vector} from "excalibur";
 import * as ex from "excalibur";
 import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.actor";
 import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
@@ -31,33 +31,24 @@ export class AsteroidActor extends Actor {
 
     onInitialize(engine: Engine) {
         super.onInitialize(engine);
-        this.vel.x = Math.random() * AsteroidConstants.maxSpeedX * 2 - AsteroidConstants.maxSpeedX;
-        this.vel.y = Math.random() * AsteroidConstants.maxSpeedY + 50;
+        const random = new Random(211);
+        this.vel.x = random.integer(0, AsteroidConstants.maxSpeedX * 2 - AsteroidConstants.maxSpeedX);
+        this.vel.y = random.integer(0, AsteroidConstants.maxSpeedY) + 50;
 
         // shape and collider
-        this.size = Math.random()*4 +1;
-        this.actorShape = [
-            ex.vec(0, -10*this.size),
-            ex.vec(-7*this.size, -7*this.size),
-            ex.vec(-8*this.size, 0),
-            ex.vec(-10*this.size, 0),
-            ex.vec(-5*this.size, 12*this.size),
-            ex.vec(0, 13*this.size),
-            ex.vec(10*this.size, 5),
-            ex.vec(8*this.size, 0),
-            ex.vec(4*this.size, -4*this.size),
-            ex.vec(3*this.size, -9*this.size),
-            ex.vec(0, -10*this.size),
-        ];
-        this.collider.set(new PolygonCollider({points: this.actorShape}));
-        this.graphics.use(new ex.Polygon({
-            points: this.actorShape,
-            color: new ex.Color(139,69,19),
-        }));
+        this.size = random.integer(1,4);
+        this.collider.set(new CircleCollider({
+            radius: this.size * 20,
+        }))
+        const sprite = this.size <= 2 ? Resources.AsteroidSmall.toSprite() : Resources.AsteroidBig.toSprite();
+        sprite.destSize = {
+            width: this.size * 20,
+            height: this.size * 20
+        };
+        this.graphics.use(sprite);
         this.actions.repeatForever((ctx => {
             ctx.rotateTo(Math.PI, Math.PI / this.size, ex.RotationType.CounterClockwise).rotateTo(Math.PI*2, Math.PI / this.size, ex.RotationType.CounterClockwise);
         }));
-        // this.actions.rotateBy(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
 
         // stats
         this.hp = AsteroidConstants.hpPerSize * this.size;
