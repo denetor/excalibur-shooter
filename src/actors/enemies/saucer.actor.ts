@@ -5,9 +5,11 @@ import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
 import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {Resources} from "../../resources";
 import {ExplosionService} from "../../services/explosion.service";
+import {EntityActor} from "../entity.actor";
+import {GemService} from "../../services/gem.service";
 
 
-const SaucerConstants = {
+export const SaucerConstants = {
     radius: 40,
     maxSpeedX: 10,
     maxSpeedY: 100,
@@ -15,9 +17,8 @@ const SaucerConstants = {
     fireInterval: 1000,
 }
 
-export class SaucerActor extends Actor {
-    public type = 'saucer';
-    private hp = SaucerConstants.hp;
+export class SaucerActor extends EntityActor {
+    protected hp = SaucerConstants.hp;
     private fireTimer: Timer;
     private spriteSheet: SpriteSheet;
 
@@ -28,6 +29,7 @@ export class SaucerActor extends Actor {
             collisionType: ex.CollisionType.Passive,
             collider: ex.Shape.Circle(SaucerConstants.radius),
         });
+        this.type = 'saucer';
     }
 
     onInitialize(engine: Engine) {
@@ -93,7 +95,7 @@ export class SaucerActor extends Actor {
         if (this.hp <= 0) {
             this.fireTimer.stop();
             ExplosionService.explode(engine, {pos: this.pos});
-            this.castGem();
+            GemService.cast(this);
             this.kill();
         }
     }
@@ -108,20 +110,6 @@ export class SaucerActor extends Actor {
         cannon.pos = ex.vec(this.pos.x, this.pos.y + 25);
         cannon.vel = ex.vec(0, EnemyCannonConstants.speed);
         this.scene.add(cannon);
-    }
-
-
-    protected castGem(): void {
-        const dice = Math.random() * 100;
-        if (dice <= 5) {
-            const gem = new AmmoGemActor();
-            gem.pos = ex.vec(this.pos.x, this.pos.y);
-            this.scene.add(gem);
-        } else if (dice <= 10) {
-            const gem = new LifeGemActor();
-            gem.pos = ex.vec(this.pos.x, this.pos.y);
-            this.scene.add(gem);
-        }
     }
 
 }

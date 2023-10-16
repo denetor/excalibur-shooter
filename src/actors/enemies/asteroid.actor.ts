@@ -5,6 +5,7 @@ import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
 import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {Resources} from "../../resources";
 import {ExplosionService} from "../../services/explosion.service";
+import {EntityActor} from "../entity.actor";
 
 
 const AsteroidConstants = {
@@ -13,8 +14,7 @@ const AsteroidConstants = {
     hpPerSize: 50,
 }
 
-export class AsteroidActor extends Actor {
-    public type = 'asteroid';
+export class AsteroidActor extends EntityActor {
     protected actorShape: Vector[];
     private size: number;
     private hp: number;
@@ -27,6 +27,7 @@ export class AsteroidActor extends Actor {
             color: ex.Color.Red,
             collisionType: ex.CollisionType.Passive,
         });
+        this.type = 'asteroid';
     }
 
     onInitialize(engine: Engine) {

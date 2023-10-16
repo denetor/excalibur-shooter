@@ -2,6 +2,7 @@ import {Actor, CollisionType, Color, Engine, Keys, ParticleEmitter, Polygon, Pol
 import {CannonActor, CannonConstants} from "../weapons/cannon.actor";
 import {ExplosionService} from "../../services/explosion.service";
 import {Resources} from "../../resources";
+import {EntityActor} from "../entity.actor";
 
 const PlayerConstants = {
   horizontalMaxSpeed: 500,
@@ -14,9 +15,7 @@ const PlayerConstants = {
   weight: 100,
 };
 
-export class PlayerActor extends Actor {
-  public type = 'player';
-
+export class PlayerActor extends EntityActor {
   // actor shape, used for basic drawing and, in future, to manage collisions
   protected actorShape: Vector[];
   protected sprite: Sprite;
@@ -39,6 +38,7 @@ export class PlayerActor extends Actor {
     super({
       collisionType: CollisionType.Passive,
     });
+    this.type = 'player';
   }
 
 
