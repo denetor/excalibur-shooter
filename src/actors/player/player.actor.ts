@@ -78,7 +78,7 @@ export class PlayerActor extends EntityActor {
       if (evt.other && (evt.other as any)?.type) {
         const targetType = (evt.other as any)?.type;
         // if some hittable actor has been hit
-        if (['asteroid', 'saucer'].some(element => element === targetType)) {
+        if (['asteroid', 'saucer', 'smartsaucer'].some(element => element === targetType)) {
           const collisionHp = this.getCollisionDamage();
           (evt.other as any).hit(collisionHp);
           this.hit(collisionHp);

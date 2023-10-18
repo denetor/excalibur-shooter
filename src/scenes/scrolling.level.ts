@@ -5,6 +5,7 @@ import {Resources} from "../resources";
 import {SaucerActor} from "../actors/enemies/saucer.actor";
 import {AsteroidActor} from "../actors/enemies/asteroid.actor";
 import {TestLevel} from "../levels/test.level";
+import {SmartSaucerActor} from "../actors/enemies/smart-saucer.actor";
 
 /**
  * Livello con scrolling verticale
@@ -68,6 +69,11 @@ export class ScrollingLevel extends Scene {
                             const saucer = new SaucerActor();
                             saucer.pos = vec(actor.x * this.levelData.cell.x, -1 * actor.y * this.levelData.cell.y - engine.drawHeight);
                             engine.currentScene.add(saucer);
+                            break;
+                        case 'smartsaucer':
+                            const smartSaucer = new SmartSaucerActor();
+                            smartSaucer.pos = vec(actor.x * this.levelData.cell.x, -1 * actor.y * this.levelData.cell.y - engine.drawHeight);
+                            engine.currentScene.add(smartSaucer);
                             break;
                         case 'asteroid':
                             const asteroid = new AsteroidActor();

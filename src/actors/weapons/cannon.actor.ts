@@ -28,7 +28,7 @@ export class CannonActor extends Actor {
             if (evt.other && (evt.other as any)?.type) {
                 const targetType = (evt.other as any)?.type;
                 // if some hittable actor has been hit
-                if (['saucer'].some(element => element === targetType)) {
+                if (['saucer', 'smartsaucer'].some(element => element === targetType)) {
                     (evt.other as any).hit(CannonConstants.damage);
                     evt.target.kill();
                 } else if (['asteroid'].some(element => element === targetType)) {
