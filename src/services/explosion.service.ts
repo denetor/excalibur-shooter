@@ -11,14 +11,14 @@ export class ExplosionService {
             maxVel: 500,
             minAngle: 0,
             maxAngle: Math.PI * 2,
-            emitRate: 50,
+            emitRate: 100,
             opacity: 1,
             fadeFlag: true,
-            particleLife: 500,
+            particleLife: 120,
             beginColor: ex.Color.Yellow,
             endColor: new ex.Color(255,96, 96),
-            maxSize: 5,
-            minSize: 2,
+            maxSize: 3,
+            minSize: 1,
         });
         embersEmitter.isEmitting = true;
         embersEmitter.pos = options.pos;
@@ -31,7 +31,7 @@ export class ExplosionService {
             emitRate: 5,
             opacity: 0.5,
             fadeFlag: true,
-            particleLife: 3500,
+            particleLife: 3000,
             maxSize: 75,
             minSize: 25,
         });
