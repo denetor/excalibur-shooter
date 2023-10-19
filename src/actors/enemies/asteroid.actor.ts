@@ -17,8 +17,6 @@ const AsteroidConstants = {
 export class AsteroidActor extends EntityActor {
     protected actorShape: Vector[];
     private size: number;
-    private hp: number;
-
 
 
     constructor() {

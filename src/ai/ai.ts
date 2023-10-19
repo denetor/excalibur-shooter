@@ -18,6 +18,7 @@ export abstract class Ai {
      * @param ai
      */
     transitionTo(ai: Ai): void {
+        console.log(`transitionTo()`);
         this.actor.setAi(ai);
     }
 }

@@ -31,16 +31,6 @@ export class ScrollingLevel extends Scene {
         this.dashboard.pos.x = this.dashboard.width / 2 + this.dashboard.width / 10;
         engine.currentScene.add(this.dashboard);
 
-        // // add test saucer
-        // const saucer = new SaucerActor();
-        // saucer.pos = vec(100, -500);
-        // engine.currentScene.add(saucer);
-        //
-        // // add test asteroid
-        // const ast1 = new AsteroidActor();
-        // ast1.pos = vec(300, -500);
-        // engine.currentScene.add(ast1);
-
         // actors to be spawned
         this.levelData = TestLevel;
     }

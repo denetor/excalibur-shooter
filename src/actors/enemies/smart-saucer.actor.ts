@@ -1,4 +1,4 @@
-import {Engine} from "excalibur";
+import {Engine, Timer, vec} from "excalibur";
 import {SaucerConstants} from "./saucer.actor";
 import {IdleAi} from "../../ai/idle.ai";
 import {EntityActor} from "../entity.actor";
@@ -10,7 +10,7 @@ import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {GemService} from "../../services/gem.service";
 
 export class SmartSaucerActor extends EntityActor {
-    protected hp = SaucerConstants.hp;
+    aiTimer: Timer;
 
     constructor() {
         super({
@@ -18,6 +18,7 @@ export class SmartSaucerActor extends EntityActor {
             collider: ex.Shape.Circle(SaucerConstants.radius),
         });
         this.type = 'smartsaucer';
+        this.hp = SaucerConstants.hp;
     }
 
 
@@ -27,10 +28,20 @@ export class SmartSaucerActor extends EntityActor {
         const sprite = Resources.Saucer.toSprite();
         sprite.destSize = {width: 40, height: 40};
         this.graphics.use(sprite);
-        this.actions.repeatForever((ctx => {
-            ctx.rotateTo(Math.PI, Math.PI / 2, ex.RotationType.CounterClockwise).rotateTo(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
-        }));
+        // this.actions.repeatForever((ctx => {
+        //     ctx.rotateTo(Math.PI, Math.PI / 2, ex.RotationType.CounterClockwise).rotateTo(Math.PI*2, Math.PI / 2, ex.RotationType.CounterClockwise);
+        // }));
+        // ai and its update timer
         this.ai = new IdleAi(this);
+        this.aiTimer = new Timer({
+            fcn: () => {
+                this.ai.update();
+            },
+            repeats: true,
+            interval: 125,
+        });
+        engine.currentScene.add(this.aiTimer);
+        this.aiTimer.start();
     }
 
 

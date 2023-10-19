@@ -18,7 +18,6 @@ export const SaucerConstants = {
 }
 
 export class SaucerActor extends EntityActor {
-    protected hp = SaucerConstants.hp;
     private fireTimer: Timer;
     private spriteSheet: SpriteSheet;
 
@@ -30,6 +29,7 @@ export class SaucerActor extends EntityActor {
             collider: ex.Shape.Circle(SaucerConstants.radius),
         });
         this.type = 'saucer';
+        this.hp = SaucerConstants.hp;
     }
 
     onInitialize(engine: Engine) {

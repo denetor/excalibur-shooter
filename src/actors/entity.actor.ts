@@ -6,9 +6,14 @@ import {Ai} from "../ai/ai";
  */
 export class EntityActor extends Actor {
     public type: string = 'entity';
-    protected ai: Ai;
+    public hp: number;
+    public ai: Ai;
 
-    setAi(ai: Ai): void {
+    public setAi(ai: Ai): void {
         this.ai = ai;
+    }
+
+    public hit(hp: number): void {
+        this.hp -= hp;
     }
 }
