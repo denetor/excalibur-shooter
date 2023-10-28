@@ -15,6 +15,7 @@ export class IdleAi extends Ai {
 
     constructor(actor: EntityActor) {
         super(actor);
+        this.name = 'IdleAi';
         this.rnd = new Random(421);
         // at each iteration generate a random dice roll to decide what to do
         this.rndTimer = new Timer({
@@ -30,7 +31,6 @@ export class IdleAi extends Ai {
 
 
     update() {
-        console.log('IdleAi.update()');
         if (this.actor) {
             this.actor.vel = Vector.Zero;
             // start patrolling only occasionally

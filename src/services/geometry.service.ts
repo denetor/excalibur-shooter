@@ -14,4 +14,16 @@ export class GeometryService {
         const y = Math.abs(a.y - b.y);
         return Math.sqrt(x*x + y*y);
     }
+
+    /**
+     * Returns the angle between 2 points
+     *
+     * @param a
+     * @param b
+     */
+    public static angle(a: Vector, b: Vector): number {
+        const x = a.x - b.x;
+        const y = a.y - b.y;
+        return Math.atan2(y, x);
+    }
 }

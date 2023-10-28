@@ -1,8 +1,6 @@
-import {Actor, Animation, Engine, SpriteSheet, Timer, Vector} from "excalibur";
+import {Engine, SpriteSheet, Timer} from "excalibur";
 import * as ex from "excalibur";
 import {EnemyCannonActor, EnemyCannonConstants} from "../weapons/enemy-cannon.actor";
-import {AmmoGemActor} from "../enhancements/ammo-gem.actor";
-import {LifeGemActor} from "../enhancements/life-gem.actor";
 import {Resources} from "../../resources";
 import {ExplosionService} from "../../services/explosion.service";
 import {EntityActor} from "../entity.actor";

@@ -2,6 +2,7 @@ import {EntityActor} from "../actors/entity.actor";
 
 export abstract class Ai {
     protected actor: EntityActor;
+    protected name = 'Ai';
 
 
     constructor(actor: EntityActor) {
@@ -18,7 +19,7 @@ export abstract class Ai {
      * @param ai
      */
     transitionTo(ai: Ai): void {
-        console.log(`transitionTo()`);
+        console.log(`transitionTo(${ai.name})`);
         this.actor.setAi(ai);
     }
 }
