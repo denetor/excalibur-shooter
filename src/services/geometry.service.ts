@@ -24,6 +24,7 @@ export class GeometryService {
     public static angle(a: Vector, b: Vector): number {
         const x = a.x - b.x;
         const y = a.y - b.y;
-        return Math.atan2(y, x);
+        console.log(Math.atan2(x, y));
+        return Math.atan2(x, y);
     }
 }

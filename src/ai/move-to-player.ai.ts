@@ -3,6 +3,7 @@ import {GeometryService} from "../services/geometry.service";
 import {IdleAi} from "./idle.ai";
 import {SaucerConstants} from "../actors/enemies/saucer.actor";
 import {ScrollingLevel} from "../scenes/scrolling.level";
+import { ShootPlayerAi } from "./shoot-player.ai";
 
 export const MoveToPlayerAiConstants = {
     radarDistance: 250,
@@ -10,7 +11,6 @@ export const MoveToPlayerAiConstants = {
 }
 
 export class MoveToPlayerAi extends Ai {
-    private status = null;
 
     constructor(actor) {
         super(actor);
@@ -25,7 +25,7 @@ export class MoveToPlayerAi extends Ai {
         }
         // if close to player, transition to firing
         else if (playerDistance < MoveToPlayerAiConstants.closeDistance) {
-            // this.transitionTo(new ShootPlayerAi(this.actor));
+            this.transitionTo(new ShootPlayerAi(this.actor));
         } else {
             // move towards player
             this.actor.actions.clearActions();
