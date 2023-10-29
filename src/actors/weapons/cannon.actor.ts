@@ -1,13 +1,16 @@
-import {Actor, CollisionType, Color, Engine} from "excalibur";
+import {Actor, CollisionType, Color, Engine, Timer} from "excalibur";
 import { Resources } from "../../resources";
 
 export const CannonConstants = {
     speed: 800,
     damage: 50,
+    lifespan: 650,
 }
+
 
 export class CannonActor extends Actor {
     public type = 'cannon';
+    protected finalY: number;
 
     constructor() {
         super({
@@ -24,6 +27,8 @@ export class CannonActor extends Actor {
         sprite.destSize = {width: 3, height: 11};
         this.graphics.use(sprite);
 
+        this.finalY = this.pos.y - CannonConstants.lifespan;
+
         this.on('collisionstart', (evt) => {
             if (evt.other && (evt.other as any)?.type) {
                 const targetType = (evt.other as any)?.type;
@@ -37,14 +42,18 @@ export class CannonActor extends Actor {
                 }
             }
         });
+
     }
 
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
-        // kill actor when goes out of the scene
-        if (this.pos.x === 0 || this.pos.y === 0 || this.pos.x >= engine.drawWidth || this.pos.y >= engine.drawHeight) {
+        if (this.pos.y <= this.finalY) {
             this.kill();
         }
+        // kill actor when goes out of the scene
+        // if (this.pos.x <= 0 || this.pos.y <= 0 || this.pos.x >= engine.drawWidth || this.pos.y >= engine.drawHeight) {
+        //     this.kill();
+        // }
     }
 
 }
