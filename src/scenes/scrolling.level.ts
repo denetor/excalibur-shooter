@@ -1,4 +1,4 @@
-import {Actor, Axis, CollisionType, Color, Engine, Random, Scene, vec} from "excalibur";
+import {Actor, Axis, CollisionType, Color, Engine, ParallaxComponent, Random, Scene, vec} from "excalibur";
 import { DashboardActor } from "../actors/dashboard/dashboard.actor";
 import {PlayerActor} from "../actors/player/player.actor";
 import {Resources} from "../resources";
@@ -113,7 +113,16 @@ export class ScrollingLevel extends Scene {
                 pos: vec(random.integer(0, engine.drawWidth), random.integer(0, engine.drawHeight) - i * 100),
             });
             star.z = -98;
-            star.graphics.use(random.bool() ? spriteSmall : spriteBig);
+            star.graphics.use(spriteBig);
+            this.add(star);
+        }
+        for (let i = 0; i < 100; i++) {
+            const star = new Actor({
+                pos: vec(random.integer(0, engine.drawWidth), random.integer(0, engine.drawHeight) - i * 100),
+            });
+            star.z = -97;
+            star.graphics.use(spriteSmall);
+            star.addComponent(new ParallaxComponent(vec(0.5, 0.5)));
             this.add(star);
         }
     }
