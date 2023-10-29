@@ -14,12 +14,14 @@ import {GeometryService} from "../services/geometry.service";
  */
 export class ScrollingLevel extends Scene {
     bg: Actor;
+    bgImage: Actor;
     player: PlayerActor;
     dashboard: DashboardActor;
     levelData: any;
 
     onInitialize(engine: Engine): void {
         this.addSolidBackground(engine);
+        this.addImageBackground(engine);
         this.addStars(engine);
 
         // add player
@@ -98,6 +100,20 @@ export class ScrollingLevel extends Scene {
         this.add(this.bg);
     }
 
+    private addImageBackground(engine: Engine) {
+        this.bgImage = new Actor({
+            width: engine.drawWidth * 2,
+            height: engine.drawHeight * 2,
+        });
+        const sprite = Resources.Planet05.toSprite();
+        // sprite.destSize = {width: 40, height: 40};
+        this.bgImage.graphics.use(sprite);
+        this.bgImage.z = -80;
+        this.bgImage.pos.y = - engine.drawHeight * 3;
+        // this.bgImage.addComponent(new ParallaxComponent(vec(0.25, 0.25)));
+        this.add(this.bgImage);
+    }
+
     /**
      * Add some stars to the level
      *
@@ -112,17 +128,18 @@ export class ScrollingLevel extends Scene {
             const star = new Actor({
                 pos: vec(random.integer(0, engine.drawWidth), random.integer(0, engine.drawHeight) - i * 100),
             });
-            star.z = -98;
+            star.z = -88;
             star.graphics.use(spriteBig);
+            star.addComponent(new ParallaxComponent(vec(0.5, 0.5)));
             this.add(star);
         }
         for (let i = 0; i < 100; i++) {
             const star = new Actor({
                 pos: vec(random.integer(0, engine.drawWidth), random.integer(0, engine.drawHeight) - i * 100),
             });
-            star.z = -97;
+            star.z = -89;
             star.graphics.use(spriteSmall);
-            star.addComponent(new ParallaxComponent(vec(0.5, 0.5)));
+            star.addComponent(new ParallaxComponent(vec(0.25, 0.25)));
             this.add(star);
         }
     }

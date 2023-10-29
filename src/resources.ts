@@ -11,6 +11,7 @@ import playerDamaged from './images/playerDamaged.png';
 import starBig from './images/starBig.png';
 import starSmall from './images/starSmall.png';
 import saucer from './images/enemyUFO.png';
+import planet05 from './images/backgrounds/Planets/planet05.png';
 
 
 
@@ -24,6 +25,7 @@ const Resources = {
     LaserGreen: new ImageSource(laserGreen),
     LaserRed: new ImageSource(laserRed),
     LevelOneBg: new ImageSource(levelOneBg),
+    Planet05: new ImageSource(planet05),
     Player: new ImageSource(player),
     PlayerLeft: new ImageSource(playerLeft),
     PlayerRight: new ImageSource(playerRight),
