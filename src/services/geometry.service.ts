@@ -42,9 +42,8 @@ export class GeometryService {
      * @param b
      */
     public static angle(a: Vector, b: Vector): number {
-        const x = a.x - b.x;
-        const y = a.y - b.y;
-        console.log(Math.atan2(x, y));
-        return Math.atan2(x, y);
+        const x = b.x - a.x;
+        const y = b.y - a.y;
+        return -1 * Math.atan2(x, y);
     }
 }

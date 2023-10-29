@@ -6,6 +6,8 @@ import {SaucerActor} from "../actors/enemies/saucer.actor";
 import {AsteroidActor} from "../actors/enemies/asteroid.actor";
 import {TestLevel} from "../levels/test.level";
 import {SmartSaucerActor} from "../actors/enemies/smart-saucer.actor";
+import {EnemyCannonActor, EnemyCannonConstants} from "../actors/weapons/enemy-cannon.actor";
+import {GeometryService} from "../services/geometry.service";
 
 /**
  * Livello con scrolling verticale
@@ -30,6 +32,14 @@ export class ScrollingLevel extends Scene {
         this.dashboard = new DashboardActor();
         this.dashboard.pos.x = this.dashboard.width / 2 + this.dashboard.width / 10;
         engine.currentScene.add(this.dashboard);
+
+        // test cannon
+        // const cannon = new EnemyCannonActor();
+        // cannon.pos = vec(100, 100);
+        // cannon.vel = GeometryService.vectorSpeed(cannon.pos, vec(300,150), 100);
+        // const angle = GeometryService.angle(cannon.pos, vec(500,150));
+        // cannon.rotation = angle;
+        // engine.currentScene.add(cannon);
 
         // actors to be spawned
         this.levelData = TestLevel;

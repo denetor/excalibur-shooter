@@ -8,12 +8,9 @@ export const TestLevel = {
 
     // actors to be spawned and their position
     actors: [
-        // smart saucers test
+
         { type: 'smartsaucer', x: 2, y: 1 },
-        // { type: 'smartsaucer', x: 3, y: 2 },
-        // { type: 'smartsaucer', x: 4, y: 3 },
-        // { type: 'smartsaucer', x: 5, y: 4 },
-        // { type: 'smartsaucer', x: 6, y: 5 },
+
 
         // V formation of 6 saucers
         // { type: 'saucer', x: 2, y: 12 },
@@ -41,5 +38,12 @@ export const TestLevel = {
         // {type: 'asteroid', x: 7, y: 36},
         // {type: 'asteroid', x: 2, y: 37},
         // {type: 'asteroid', x: 6, y: 38},
+        //
+        // // some smart saucers
+        // { type: 'smartsaucer', x: 2, y: 41 },
+        // { type: 'smartsaucer', x: 3, y: 42 },
+        // { type: 'smartsaucer', x: 4, y: 43 },
+        // { type: 'smartsaucer', x: 5, y: 44 },
+        // { type: 'smartsaucer', x: 6, y: 45 },
     ],
 };
