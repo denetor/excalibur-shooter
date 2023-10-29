@@ -18,18 +18,20 @@ export class MoveToPlayerAi extends Ai {
     }
 
     update() {
-        const playerDistance = GeometryService.distance(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
-        // if too far from player, transition to idle
-        if (playerDistance > MoveToPlayerAiConstants.radarDistance) {
-            this.transitionTo(new IdleAi(this.actor));
-        }
-        // if close to player, transition to firing
-        else if (playerDistance < MoveToPlayerAiConstants.closeDistance) {
-            this.transitionTo(new ShootPlayerAi(this.actor));
-        } else {
-            // move towards player
-            this.actor.actions.clearActions();
-            this.actor.actions.moveTo((this.actor.scene as ScrollingLevel).player.pos, 100);
+        if (this.actor && this.actor.pos && (this.actor.scene as ScrollingLevel) && (this.actor.scene as ScrollingLevel).player && (this.actor.scene as ScrollingLevel).player.pos) {
+            const playerDistance = GeometryService.distance(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
+            // if too far from player, transition to idle
+            if (playerDistance > MoveToPlayerAiConstants.radarDistance) {
+                this.transitionTo(new IdleAi(this.actor));
+            }
+            // if close to player, transition to firing
+            else if (playerDistance < MoveToPlayerAiConstants.closeDistance) {
+                this.transitionTo(new ShootPlayerAi(this.actor));
+            } else {
+                // move towards player
+                this.actor.actions.clearActions();
+                this.actor.actions.moveTo((this.actor.scene as ScrollingLevel).player.pos, 100);
+            }
         }
     }
 }

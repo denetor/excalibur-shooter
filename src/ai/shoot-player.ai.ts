@@ -27,17 +27,21 @@ export class ShootPlayerAi  extends Ai {
 
 
     update() {
-        const playerDistance = GeometryService.distance(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
-        if (playerDistance > MoveToPlayerAiConstants.closeDistance) {
-            this.transitionTo(new IdleAi(this.actor));
+        if (this.actor && this.actor.pos && (this.actor.scene as ScrollingLevel) && (this.actor.scene as ScrollingLevel).player && (this.actor.scene as ScrollingLevel).player.pos) {
+            const playerDistance = GeometryService.distance(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
+            if (playerDistance > MoveToPlayerAiConstants.closeDistance) {
+                this.transitionTo(new IdleAi(this.actor));
+            }
         }
     }
 
     fireCannon(): void {
-        const cannon = new EnemyCannonActor();
-        cannon.pos = vec(this.actor.pos.x, this.actor.pos.y);
-        cannon.vel = GeometryService.vectorSpeed(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos, EnemyCannonConstants.speed);
-        cannon.rotation = GeometryService.angle(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
-        this.actor.scene.add(cannon);
+        if (this.actor && this.actor.pos && (this.actor.scene as ScrollingLevel) && (this.actor.scene as ScrollingLevel).player && (this.actor.scene as ScrollingLevel).player.pos) {
+            const cannon = new EnemyCannonActor();
+            cannon.pos = vec(this.actor.pos.x, this.actor.pos.y);
+            cannon.vel = GeometryService.vectorSpeed(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos, EnemyCannonConstants.speed);
+            cannon.rotation = GeometryService.angle(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
+            this.actor.scene.add(cannon);
+        }
     }
 }
