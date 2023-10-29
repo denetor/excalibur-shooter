@@ -34,11 +34,11 @@ export class ShootPlayerAi  extends Ai {
     }
 
     fireCannon(): void {
-        const angle = GeometryService.angle(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
         const cannon = new EnemyCannonActor();
         cannon.pos = vec(this.actor.pos.x, this.actor.pos.y + 25);
-        cannon.vel = vec(0, EnemyCannonConstants.speed);
-        cannon.rotation = angle;
+        cannon.vel = GeometryService.vectorSpeed(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos, EnemyCannonConstants.speed);
+        //const angle = GeometryService.angle(this.actor.pos, (this.actor.scene as ScrollingLevel).player.pos);
+        // cannon.rotation = angle;
         this.actor.scene.add(cannon);
     }
 }
