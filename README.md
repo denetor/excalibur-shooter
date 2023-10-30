@@ -40,6 +40,17 @@ Nice to have:
 Some open sprite can be found here: https://opengameart.org/content/2d-complete-kit
 
 
+## TODO
+- [ ] Fix dashboard
+- [ ] Transform the background planet in a level item, with a new parallax option.
+- [ ] Add a destination planet at the end of the level
+- [ ] Add a final zone of the level to be used to detect the reach of the level end. It will also shrink the player sprite to simulate a landing
+- [ ] Add 3 lives
+- [ ] Add an introductive message for the level
+- [ ] Add more actors to the first level
+- [ ] Restore the main menu
+- [ ] Detect game over and go back to main menu
+
 
 
 
