@@ -8,6 +8,7 @@ import {TestLevel} from "../levels/test.level";
 import {SmartSaucerActor} from "../actors/enemies/smart-saucer.actor";
 import {EnemyCannonActor, EnemyCannonConstants} from "../actors/weapons/enemy-cannon.actor";
 import {GeometryService} from "../services/geometry.service";
+import {PlanetActor} from "../actors/scenery/planet.actor";
 
 /**
  * Livello con scrolling verticale
@@ -21,7 +22,6 @@ export class ScrollingLevel extends Scene {
 
     onInitialize(engine: Engine): void {
         this.addSolidBackground(engine);
-        this.addImageBackground(engine);
         this.addStars(engine);
 
         // add player
@@ -50,6 +50,21 @@ export class ScrollingLevel extends Scene {
         }
         if (this.dashboard) {
             this.dashboard.pos.y = this.camera.y - engine.drawHeight / 2 + 25;// - this.dashboard.height;
+        }
+
+        // check for spawning scenery
+        if (this?.levelData?.scenery) {
+            for (const actor of this.levelData.scenery) {
+                if (actor && actor?.y && actor?.spawned == undefined && this?.levelData?.cell?.y && (-1 * engine.currentScene.camera.y) >= actor.y * this.levelData.cell.y) {
+                    switch (actor?.type) {
+                        case 'planet':
+                            const item = new PlanetActor(actor?.subType);
+                            item.pos = vec(actor.x * this.levelData.cell.x, -1 * actor.y * this.levelData.cell.y - engine.drawHeight);
+                            engine.currentScene.add(item);
+                            break;
+                    }
+                }
+            }
         }
 
         // check for spawning actors
@@ -98,20 +113,6 @@ export class ScrollingLevel extends Scene {
         this.add(this.bg);
     }
 
-    private addImageBackground(engine: Engine) {
-        this.bgImage = new Actor({
-            width: engine.drawWidth * 2,
-            height: engine.drawHeight * 2,
-        });
-        const sprite = Resources.Planet05.toSprite();
-        // sprite.destSize = {width: 40, height: 40};
-        this.bgImage.graphics.use(sprite);
-        this.bgImage.z = -80;
-        this.bgImage.pos.y = - engine.drawHeight * 3;
-        // this.bgImage.addComponent(new ParallaxComponent(vec(0.25, 0.25)));
-        this.add(this.bgImage);
-    }
-
     /**
      * Add some stars to the level
      *
@@ -128,7 +129,7 @@ export class ScrollingLevel extends Scene {
             });
             star.z = -88;
             star.graphics.use(spriteBig);
-            star.addComponent(new ParallaxComponent(vec(0.5, 0.5)));
+            star.addComponent(new ParallaxComponent(vec(0.25, 0.25)));
             this.add(star);
         }
         for (let i = 0; i < 100; i++) {
@@ -137,7 +138,7 @@ export class ScrollingLevel extends Scene {
             });
             star.z = -89;
             star.graphics.use(spriteSmall);
-            star.addComponent(new ParallaxComponent(vec(0.25, 0.25)));
+            star.addComponent(new ParallaxComponent(vec(0.15, 0.15)));
             this.add(star);
         }
     }

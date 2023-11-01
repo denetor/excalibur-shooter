@@ -6,6 +6,10 @@ export const TestLevel = {
         y: 80,
     },
 
+    scenery: [
+        { type: 'planet', subType: '05', x: 0, y: 5 },
+    ],
+
     // actors to be spawned and their position
     actors: [
 
@@ -16,7 +20,6 @@ export const TestLevel = {
         // { type: 'smartsaucer', x: 2, y: 4 },
         // { type: 'smartsaucer', x: 2, y: 5 },
         // { type: 'smartsaucer', x: 2, y: 6 },
-
 
         // V formation of 6 saucers
         { type: 'saucer', x: 2, y: 12 },
