@@ -8,6 +8,7 @@ export const TestLevel = {
 
     scenery: [
         { type: 'planet', subType: '05', x: 0, y: 5 },
+        { type: 'planet', subType: '01', x: 3, y: 50 },
     ],
 
     // actors to be spawned and their position
