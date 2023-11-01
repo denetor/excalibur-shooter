@@ -2,6 +2,9 @@ import * as ex from "excalibur";
 import {Actor, Color, Engine, GraphicsGroup, Line, Rectangle, Text} from "excalibur";
 
 export class DashboardActor extends Actor {
+    // protected bg = new Rectangle({
+    //
+    // });
     protected lifeText = new Text({
         text: 'Life:',
         color: Color.White,
@@ -63,8 +66,8 @@ export class DashboardActor extends Actor {
     })
 
     onInitialize(engine: Engine) {
-        this.pos = ex.vec(100,50);
         this.graphics.anchor = ex.vec(0,0);
+        this.pos = ex.vec(0,0);
         this.graphics.use(this.graphicsGroup);
     }
 

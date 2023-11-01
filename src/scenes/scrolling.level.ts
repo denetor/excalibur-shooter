@@ -29,10 +29,8 @@ export class ScrollingLevel extends Scene {
         this.player.pos = vec(engine.drawWidth / 2, engine.drawHeight /2);
         this.add(this.player);
 
-        // TODO fix dashboard
         // add dashboard
         this.dashboard = new DashboardActor();
-        this.dashboard.pos.x = this.dashboard.width / 2 + this.dashboard.width / 10;
         engine.currentScene.add(this.dashboard);
 
         // actors to be spawned
@@ -51,7 +49,7 @@ export class ScrollingLevel extends Scene {
             this.bg.pos = this.camera.pos;
         }
         if (this.dashboard) {
-            this.dashboard.pos.y = this.camera.y - engine.drawHeight / 2 - this.dashboard.height;
+            this.dashboard.pos.y = this.camera.y - engine.drawHeight / 2 + 25;// - this.dashboard.height;
         }
 
         // check for spawning actors
